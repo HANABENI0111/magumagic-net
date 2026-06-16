@@ -1,0 +1,32 @@
+# local dev / tooling
+.claude/
+.DS_Store
+
+# unused source assets (not referenced by the site)
+item/
+item2/
+
+# old scroll-LP backup
+index-lp.html
+styles.css
+script.js
+
+# unused assets (not referenced by the live site)
+assets/bg-town.png
+assets/bg-town2_night.png
+assets/magu magic title02.png
+assets/blobs.png
+assets/deco-set.png
+assets/food-set.png
+assets/mascot-coin.png
+assets/mascot-eat.png
+assets/mascot-order.png
+assets/mascot-peek.png
+assets/mascot-sad.png
+assets/mascot-sprout.png
+assets/mascot-tag.png
+assets/mascot-wave.png
+assets/world-eatin-takeout.png
+assets/world-loop.png
+assets/world-save.png
+assets/bg-town2.png
