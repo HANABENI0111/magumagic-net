@@ -171,6 +171,18 @@ function stopFireworks() {
 // restore last choice
 try { if (localStorage.getItem('magu-night') === '1') setNight(true, false); } catch (e) {}
 
+// Pause all motion when the tab/page is hidden — saves CPU/GPU/battery and stops heat build-up
+document.addEventListener('visibilitychange', function () {
+  if (document.hidden) {
+    document.body.classList.add('anim-paused');
+    stopFireworks();
+  } else {
+    document.body.classList.remove('anim-paused');
+    if (root.classList.contains('night')) startFireworks();
+  }
+});
+if (document.hidden) document.body.classList.add('anim-paused');  // loaded in a background tab
+
 // ===== Background: sparkles + rising balloons =====
 (function () {
   if (reduce) return;
@@ -178,7 +190,7 @@ try { if (localStorage.getItem('magu-night') === '1') setNight(true, false); } c
   const balloons = document.getElementById('balloons');
   // sparkles — bigger, brighter, more of them
   const sCols = ['#ffd23f', '#ff8fab', '#5ad1a9', '#5bc2f0', '#b3a4ee', '#ff9f45'];
-  const N = isMobile ? 28 : 80;
+  const N = isMobile ? 28 : 50;
   for (let i = 0; i < N; i++) {
     const sz = 20 + Math.random() * 30, c = sCols[(Math.random() * sCols.length) | 0];
     const s = document.createElement('span');
@@ -189,7 +201,7 @@ try { if (localStorage.getItem('magu-night') === '1') setNight(true, false); } c
   }
   // balloons — more, larger, faster, with strings
   const bCols = ['#ff8fab', '#ffd23f', '#5bc2f0', '#b3a4ee', '#5ad1a9', '#ff9f45'];
-  const B = isMobile ? 6 : 16;
+  const B = isMobile ? 6 : 12;
   for (let k = 0; k < B; k++) {
     const col = bCols[k % bCols.length], size = 56 + Math.random() * 46;   // ≈2/3 of previous
     const dur = 13 + Math.random() * 9;
