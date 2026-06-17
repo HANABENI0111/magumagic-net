@@ -209,7 +209,7 @@ const formMsg = document.getElementById('formMsg');
 // Web3Forms access key — get a free key for info@magumagic.net at https://web3forms.com
 // (enter that address, the key is emailed instantly) and paste it below. Submissions are
 // then delivered straight to that inbox. The key is safe to expose in client code.
-const WEB3FORMS_KEY = 'PASTE-YOUR-WEB3FORMS-ACCESS-KEY';
+const WEB3FORMS_KEY = 'ea4415b9-5faf-439d-960a-1c29218c240a';
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   if (!form.checkValidity()) {
