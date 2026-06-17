@@ -33,7 +33,8 @@ const layer = document.getElementById('mascotLayer');
 const MASCOTS = ['MAGU_face01','MAGU_face02','MAGU_face03','MAGU_face04','MAGU_face05','MAGU_face06']
   .map(n => 'assets/' + n + '.png');
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const MAX = 14;         // concurrent mascots (small now, so more)
+const isMobile = innerWidth < 700;
+const MAX = isMobile ? 5 : 14;   // concurrent mascots (fewer on mobile to keep taps responsive)
 let recentBox = null;
 
 const MOTIONS = ['m-bob', 'm-wiggle', 'm-hop', 'm-sway', 'm-spin'];
@@ -67,7 +68,7 @@ function spawn() {
 
 function loop() {
   spawn();
-  setTimeout(loop, 250 + Math.random() * 450);      // every ~0.25–0.7s
+  setTimeout(loop, (isMobile ? 900 : 250) + Math.random() * 450);   // slower spawn on mobile
 }
 if (!reduce) { for (let i = 0; i < 3; i++) setTimeout(spawn, i * 400); loop(); }
 
@@ -155,7 +156,7 @@ function fwTick(t) {
     fwCtx.strokeStyle = 'hsla(' + p.hue + ',100%,' + Math.min(96, p.light + 26) + '%,' + a + ')'; fwCtx.lineWidth = p.size; fwCtx.stroke(); // core
   }
   fwCtx.globalCompositeOperation = 'source-over';
-  if (!document.hidden && t - fwLast > 500 + Math.random() * 520 && fwParticles.length < 2600) { fwRocket(); fwLast = t; }
+  if (!document.hidden && t - fwLast > (isMobile ? 850 : 500) + Math.random() * 520 && fwParticles.length < (isMobile ? 700 : 2600)) { fwRocket(); fwLast = t; }
   fwRAF = requestAnimationFrame(fwTick);
 }
 function startFireworks() {
@@ -177,7 +178,7 @@ try { if (localStorage.getItem('magu-night') === '1') setNight(true, false); } c
   const balloons = document.getElementById('balloons');
   // sparkles — bigger, brighter, more of them
   const sCols = ['#ffd23f', '#ff8fab', '#5ad1a9', '#5bc2f0', '#b3a4ee', '#ff9f45'];
-  const N = innerWidth < 700 ? 46 : 80;
+  const N = isMobile ? 28 : 80;
   for (let i = 0; i < N; i++) {
     const sz = 20 + Math.random() * 30, c = sCols[(Math.random() * sCols.length) | 0];
     const s = document.createElement('span');
@@ -188,7 +189,7 @@ try { if (localStorage.getItem('magu-night') === '1') setNight(true, false); } c
   }
   // balloons — more, larger, faster, with strings
   const bCols = ['#ff8fab', '#ffd23f', '#5bc2f0', '#b3a4ee', '#5ad1a9', '#ff9f45'];
-  const B = innerWidth < 700 ? 9 : 16;
+  const B = isMobile ? 6 : 16;
   for (let k = 0; k < B; k++) {
     const col = bCols[k % bCols.length], size = 56 + Math.random() * 46;   // ≈2/3 of previous
     const dur = 13 + Math.random() * 9;
