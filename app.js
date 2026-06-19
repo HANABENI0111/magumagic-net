@@ -34,7 +34,7 @@ const MASCOTS = ['MAGU_face01','MAGU_face02','MAGU_face03','MAGU_face04','MAGU_f
   .map(n => 'assets/' + n + '.png');
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isMobile = innerWidth < 700;
-const MAX = isMobile ? 5 : 14;   // concurrent mascots (fewer on mobile to keep taps responsive)
+const MAX = isMobile ? 3 : 6;    // concurrent mascots (kept low for performance)
 let recentBox = null;
 
 const MOTIONS = ['m-bob', 'm-wiggle', 'm-hop', 'm-sway', 'm-spin'];
@@ -68,7 +68,7 @@ function spawn() {
 
 function loop() {
   spawn();
-  setTimeout(loop, (isMobile ? 900 : 250) + Math.random() * 450);   // slower spawn on mobile
+  setTimeout(loop, (isMobile ? 1500 : 950) + Math.random() * 700);   // gentle spawn cadence
 }
 if (!reduce) { for (let i = 0; i < 3; i++) setTimeout(spawn, i * 400); loop(); }
 
@@ -117,21 +117,21 @@ function fwBurst(x, y, hue) {
   const k = Math.random();
   // decay values are low so bursts linger and trail off like real fireworks
   if (k < 0.2) {                                   // crisp ring
-    const n = 56, sp = 4.8 + Math.random() * 1.8, h = (hue + 30) | 0;
+    const n = 40, sp = 4.8 + Math.random() * 1.8, h = (hue + 30) | 0;
     for (let i = 0; i < n; i++) { const a = 6.2832 * i / n; fwAdd(x, y, Math.cos(a) * sp, Math.sin(a) * sp, h, 66, 0.0044, 0.022, 0.99, 2.2, false); }
   } else if (k < 0.42) {                            // golden willow (long, drooping tails)
-    const n = 88; for (let i = 0; i < n; i++) { const a = Math.random() * 6.2832, sp = 1 + Math.random() * 3.4; fwAdd(x, y, Math.cos(a) * sp, Math.sin(a) * sp, 42 + Math.random() * 14, 62, 0.0024, 0.05, 0.992, 2.6, true); }
+    const n = 54; for (let i = 0; i < n; i++) { const a = Math.random() * 6.2832, sp = 1 + Math.random() * 3.4; fwAdd(x, y, Math.cos(a) * sp, Math.sin(a) * sp, 42 + Math.random() * 14, 62, 0.0024, 0.05, 0.992, 2.6, true); }
   } else if (k < 0.6) {                             // double ring, two hues
     const h2 = (hue + 130 + Math.random() * 90) | 0;
-    [[3.4, hue], [5.8, h2]].forEach(function (r) { for (let i = 0; i < 50; i++) { const a = 6.2832 * i / 50; fwAdd(x, y, Math.cos(a) * r[0], Math.sin(a) * r[0], r[1], 66, 0.0046, 0.022, 0.99, 2.2, false); } });
+    [[3.4, hue], [5.8, h2]].forEach(function (r) { for (let i = 0; i < 34; i++) { const a = 6.2832 * i / 34; fwAdd(x, y, Math.cos(a) * r[0], Math.sin(a) * r[0], r[1], 66, 0.0046, 0.022, 0.99, 2.2, false); } });
   } else {                                          // grand peony / chrysanthemum
-    const n = 130 + (Math.random() * 64 | 0), base = hue + (Math.random() * 40 - 20);
+    const n = 78 + (Math.random() * 40 | 0), base = hue + (Math.random() * 40 - 20);
     for (let i = 0; i < n; i++) { const a = Math.random() * 6.2832, sp = 1.4 + Math.random() * 6.6; fwAdd(x, y, Math.cos(a) * sp, Math.sin(a) * sp, base + (Math.random() * 30 - 15), 64, 0.0038 + Math.random() * 0.004, 0.03, 0.99, 1.8 + Math.random() * 1.6, Math.random() < 0.35); }
   }
   // lingering glitter embers that twinkle as they fade
-  for (let i = 0; i < 28; i++) { const a = Math.random() * 6.2832, sp = Math.random() * 4.2; fwAdd(x, y, Math.cos(a) * sp, Math.sin(a) * sp, hue, 82, 0.004 + Math.random() * 0.006, 0.03, 0.986, 1.5, true); }
+  for (let i = 0; i < 14; i++) { const a = Math.random() * 6.2832, sp = Math.random() * 4.2; fwAdd(x, y, Math.cos(a) * sp, Math.sin(a) * sp, hue, 82, 0.004 + Math.random() * 0.006, 0.03, 0.986, 1.5, true); }
   // bright core flash
-  for (let i = 0; i < 16; i++) { const a = Math.random() * 6.2832, sp = Math.random() * 1.5; fwAdd(x, y, Math.cos(a) * sp, Math.sin(a) * sp, hue, 96, 0.04, 0.01, 0.9, 3.2, false); }
+  for (let i = 0; i < 10; i++) { const a = Math.random() * 6.2832, sp = Math.random() * 1.5; fwAdd(x, y, Math.cos(a) * sp, Math.sin(a) * sp, hue, 96, 0.04, 0.01, 0.9, 3.2, false); }
 }
 function fwTick(t) {
   if (!fwRunning) return;
@@ -151,12 +151,10 @@ function fwTick(t) {
     if (p.life <= 0) { fwParticles.splice(i, 1); continue; }
     let a = p.life; if (p.flick || p.life < 0.34) a *= 0.42 + 0.58 * Math.random();
     fwCtx.beginPath(); fwCtx.moveTo(px, py); fwCtx.lineTo(p.x, p.y);
-    fwCtx.strokeStyle = 'hsla(' + p.hue + ',100%,' + p.light + '%,' + (a * 0.22) + ')'; fwCtx.lineWidth = p.size * 2.6; fwCtx.stroke();   // glow
-    fwCtx.beginPath(); fwCtx.moveTo(px, py); fwCtx.lineTo(p.x, p.y);
-    fwCtx.strokeStyle = 'hsla(' + p.hue + ',100%,' + Math.min(96, p.light + 26) + '%,' + a + ')'; fwCtx.lineWidth = p.size; fwCtx.stroke(); // core
+    fwCtx.strokeStyle = 'hsla(' + p.hue + ',100%,' + Math.min(96, p.light + 22) + '%,' + a + ')'; fwCtx.lineWidth = p.size * 1.3; fwCtx.stroke(); // single stroke ('lighter' gives the glow)
   }
   fwCtx.globalCompositeOperation = 'source-over';
-  if (!document.hidden && t - fwLast > (isMobile ? 850 : 500) + Math.random() * 520 && fwParticles.length < (isMobile ? 700 : 2600)) { fwRocket(); fwLast = t; }
+  if (!document.hidden && t - fwLast > (isMobile ? 1100 : 750) + Math.random() * 600 && fwParticles.length < (isMobile ? 450 : 1300)) { fwRocket(); fwLast = t; }
   fwRAF = requestAnimationFrame(fwTick);
 }
 function startFireworks() {
@@ -190,7 +188,7 @@ if (document.hidden) document.body.classList.add('anim-paused');  // loaded in a
   const balloons = document.getElementById('balloons');
   // sparkles — bigger, brighter, more of them
   const sCols = ['#ffd23f', '#ff8fab', '#5ad1a9', '#5bc2f0', '#b3a4ee', '#ff9f45'];
-  const N = isMobile ? 28 : 50;
+  const N = isMobile ? 14 : 26;
   for (let i = 0; i < N; i++) {
     const sz = 20 + Math.random() * 30, c = sCols[(Math.random() * sCols.length) | 0];
     const s = document.createElement('span');
@@ -201,7 +199,7 @@ if (document.hidden) document.body.classList.add('anim-paused');  // loaded in a
   }
   // balloons — more, larger, faster, with strings
   const bCols = ['#ff8fab', '#ffd23f', '#5bc2f0', '#b3a4ee', '#5ad1a9', '#ff9f45'];
-  const B = isMobile ? 6 : 12;
+  const B = isMobile ? 4 : 8;
   for (let k = 0; k < B; k++) {
     const col = bCols[k % bCols.length], size = 56 + Math.random() * 46;   // ≈2/3 of previous
     const dur = 13 + Math.random() * 9;
