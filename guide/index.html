@@ -94,6 +94,23 @@
       padding:12px 24px;border-radius:999px}
     .help .mail{display:block;margin-top:12px;font-size:13px;opacity:.92;color:#fff;text-decoration:underline}
 
+    /* info cards (cancel / points) */
+    .section-h{font-size:20px;font-weight:900;margin:30px 4px 14px;text-align:center}
+    .infocard{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:20px 18px;margin-bottom:16px}
+    .infocard p{color:var(--ink-soft);font-size:14.5px}
+    .infocard ul{list-style:none;margin:10px 0 0;display:flex;flex-direction:column;gap:7px}
+    .infocard li{position:relative;padding-left:22px;font-size:14px;color:var(--ink-soft)}
+    .infocard li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:900}
+    .pcompare{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+    .pcol{border-radius:14px;padding:14px 16px}
+    .pcol.magu{background:var(--green-soft)}
+    .pcol.store{background:#fff0e0}
+    .pcol h3{font-size:15px;font-weight:900;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+    .pcol.magu h3{color:var(--green-deep)}
+    .pcol.store h3{color:#b9701f}
+    .pcol p{font-size:13.5px}
+    .pcommon{margin-top:10px;font-size:13px;color:var(--ink-soft);text-align:center}
+
     /* footer */
     .foot{text-align:center;margin-top:30px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:12px}
     .foot a{color:var(--green-deep);font-weight:700;text-decoration:none;margin:0 8px}
@@ -143,8 +160,6 @@
       <article class="step">
         <div class="step-head"><span class="step-ic ic-b">🔍</span><h2>お店を探す</h2></div>
         <p>画面下の<b>「検索」</b>から、店名・エリア・マップでお店を見つけます。気になるお店をタップすると、お店のページが開きます。</p>
-        <div class="shot"><img src="/assets/guide-store.webp" alt="お店のページ：店舗説明・メニュー・レビュー・マップのタブ" /></div>
-        <p class="shot-cap">▲ お店のページ（トップ／メニュー／レビュー／マップ）</p>
         <ul>
           <li>「マップ」タブで場所や行き方を確認できます</li>
           <li>「レビュー」タブでみんなの評価をチェック</li>
@@ -154,8 +169,6 @@
       <article class="step">
         <div class="step-head"><span class="step-ic ic-c">🍱</span><h2>メニューを見て「注文に追加」</h2></div>
         <p>「メニュー」タブから、写真付きのメニューを選びます。数量を <b>＋</b> で調整し、<b>「注文に追加」</b>を押すとカゴに入ります。</p>
-        <div class="shot"><img src="/assets/guide-menu.webp" alt="メニュー画面：カテゴリ・価格・ポイント・注文に追加ボタン" /></div>
-        <p class="shot-cap">▲ メニュー画面（カテゴリで絞り込み → 注文に追加）</p>
         <ul>
           <li>モーニング／ランチ／ディナー／お持ち帰り などで絞り込めます</li>
           <li>メニューごとに<b>獲得ポイント</b>が表示されます</li>
@@ -199,6 +212,33 @@
       </article>
 
     </section>
+
+    <h2 class="section-h">知っておくと便利</h2>
+
+    <article class="infocard">
+      <div class="step-head"><span class="step-ic ic-d">🔁</span><h2>注文をキャンセルしたいとき</h2></div>
+      <p>ご注文のキャンセルは、アプリから<b>提供日（受け取り日）の当日まで</b>、お店の定める方法で行えます。注文内容の画面からキャンセルの手続きへ進めます。</p>
+      <ul>
+        <li>キャンセルはお早めに。<b>提供日当日を過ぎる</b>とお店側でのキャンセル扱いとなり、ストアポイントは付与されません</li>
+        <li>お酒の年齢確認ができない場合なども、注文はキャンセル扱いとなります</li>
+      </ul>
+      <div class="tip">💡 <b>決済後のキャンセルは、現金での返金ではありません。</b>お支払い済みの代金は、そのお店で使える<b>ストアポイント</b>（有効期限6か月・払戻し不可）として返ります。</div>
+    </article>
+
+    <article class="infocard">
+      <div class="step-head"><span class="step-ic ic-f">🪙</span><h2>MAGUポイントとストアポイントの違い</h2></div>
+      <div class="pcompare">
+        <div class="pcol magu">
+          <h3>🟢 MAGUポイント</h3>
+          <p>MAGU MAGIC が発行するポイント。MAGU MAGIC の加盟店でお会計に使えます。ご注文などで貯まり、いろいろなお店で使えるのが特長です。</p>
+        </div>
+        <div class="pcol store">
+          <h3>🟠 ストアポイント</h3>
+          <p>各お店が発行するポイント。発行した<b>そのお店</b>で使えます。主に、ご注文を<b>キャンセルしたときの返金の代わり</b>として付与されます。</p>
+        </div>
+      </div>
+      <p class="pcommon">どちらも有効期限は発行から<b>6か月</b>。現金化・他人への譲渡・交換はできません。</p>
+    </article>
 
     <section class="navmap">
       <h2>画面下のメニュー</h2>
