@@ -20,6 +20,14 @@ function show(name) {
 }
 buttons.forEach(b => b.addEventListener('click', (e) => { e.preventDefault(); show(b.dataset.panel); }));
 
+// deep-link support: /#contact, /#company, /#mottainai, /#privacy, /#terms open that panel
+function panelFromHash() {
+  const h = (location.hash || '').replace('#', '');
+  if (h && document.getElementById('panel-' + h)) show(h);
+}
+window.addEventListener('hashchange', panelFromHash);
+panelFromHash();
+
 // ===== Mobile menu =====
 function closeMenu() { menu.classList.remove('open'); menuToggle.classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false'); }
 menuToggle.addEventListener('click', () => {

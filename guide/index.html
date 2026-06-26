@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ご利用ガイド ｜ MAGU MAGIC の使い方</title>
+  <meta name="description" content="MAGU MAGIC アプリの使い方ガイド。お店を探す・メニューを注文・お会計・ポイントまで、操作をやさしく解説します。" />
+  <link rel="canonical" href="https://www.magumagic.net/guide/" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --green:#3aa17e;--green-deep:#2c7d62;--green-soft:#e8f4ee;
+      --cream:#fbf7ee;--ink:#2f3a32;--ink-soft:#5d6b60;--line:#e7e0d2;
+      --berry:#ef6a6a;--beer:#f4b740;--sky:#86cfee;--violet:#b3a4ee;
+      --font-jp:"Zen Maru Gothic",system-ui,sans-serif;--font-en:"Poppins",var(--font-jp);
+      --shadow:0 12px 30px rgba(44,125,98,.14);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-jp);color:var(--ink);line-height:1.9;-webkit-font-smoothing:antialiased;
+      background:radial-gradient(120% 60% at 50% 0%,#eef7f1,var(--cream) 60%);min-height:100vh}
+    img{max-width:100%;display:block}
+    a{color:inherit}
+
+    /* header */
+    .top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+      gap:12px;padding:12px 16px;background:rgba(251,247,238,.92);border-bottom:1px solid var(--line)}
+    .brand{display:flex;align-items:center;gap:9px;text-decoration:none}
+    .brand img{width:34px;height:34px;object-fit:contain}
+    .brand b{font-family:var(--font-en);font-weight:800;font-size:15px;letter-spacing:.3px}
+    .brand small{display:block;font-family:var(--font-jp);font-size:10px;color:var(--ink-soft);font-weight:700;margin-top:-2px}
+    .back{font-size:13px;font-weight:700;color:var(--green-deep);text-decoration:none;
+      background:#fff;border:1px solid var(--line);padding:7px 14px;border-radius:999px;white-space:nowrap}
+
+    .wrap{max-width:640px;margin:0 auto;padding:0 16px 60px}
+
+    /* hero */
+    .hero{text-align:center;padding:30px 6px 8px}
+    .hero .eyebrow{display:inline-block;background:#fff;color:var(--green-deep);font-weight:700;font-size:12px;
+      padding:6px 14px;border-radius:999px;box-shadow:var(--shadow)}
+    .hero h1{font-size:clamp(26px,7vw,34px);font-weight:900;margin:16px 0 8px}
+    .hero p{color:var(--ink-soft);font-size:15px}
+    .hero-mascot{width:96px;margin:6px auto 0}
+
+    /* store badges */
+    .badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+    .badge img{height:46px;width:auto}
+    .badge{transition:transform .15s;display:inline-block}
+    .badge:active{transform:scale(.97)}
+
+    /* steps */
+    .steps{margin-top:30px;display:flex;flex-direction:column;gap:16px;counter-reset:step}
+    .step{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:20px 18px;position:relative}
+    .step::before{counter-increment:step;content:"STEP " counter(step);
+      font-family:var(--font-en);font-weight:800;font-size:12px;letter-spacing:1px;color:var(--green)}
+    .step-head{display:flex;align-items:center;gap:12px;margin:6px 0 8px}
+    .step-ic{flex:0 0 auto;width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:24px}
+    .ic-a{background:#e6f1ff}.ic-b{background:var(--green-soft)}.ic-c{background:#fff0e0}
+    .ic-d{background:#fde7ec}.ic-e{background:#eafaf3}.ic-f{background:#fff6d9}.ic-g{background:#efeaff}
+    .step-head h2{font-size:18px;font-weight:900;line-height:1.4}
+    .step p{color:var(--ink-soft);font-size:14.5px}
+    .step ul{list-style:none;margin:10px 0 0;display:flex;flex-direction:column;gap:7px}
+    .step li{position:relative;padding-left:22px;font-size:14px;color:var(--ink-soft)}
+    .step li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:900}
+    .tip{margin-top:12px;background:var(--green-soft);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--green-deep)}
+
+    /* phone shot */
+    .shot{margin:14px auto 4px;width:min(220px,64%);background:#111;border-radius:26px;padding:7px;box-shadow:0 16px 30px rgba(44,125,98,.22)}
+    .shot img{width:100%;border-radius:20px}
+    .shot-cap{text-align:center;font-size:12px;color:var(--ink-soft);margin-top:6px}
+
+    /* bottom-nav explainer */
+    .navmap{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:20px 18px;margin-top:24px}
+    .navmap h2{font-size:17px;font-weight:900;margin-bottom:4px}
+    .navmap p{color:var(--ink-soft);font-size:14px;margin-bottom:14px}
+    .navrow{display:flex;justify-content:space-between;gap:6px;text-align:center}
+    .navrow div{flex:1;font-size:11.5px;font-weight:700;color:var(--ink-soft)}
+    .navrow .em{display:block;font-size:22px;margin-bottom:3px}
+    .navrow .on{color:var(--green-deep)}
+
+    /* note */
+    .note{margin-top:18px;background:#fff7e6;border:1px solid #f3e3bd;border-radius:16px;padding:16px 18px;font-size:13.5px;color:#7a5a18}
+    .note b{color:#6a4d12}
+
+    /* help / contact */
+    .help{margin-top:24px;background:linear-gradient(135deg,var(--green-deep),var(--green));color:#fff;
+      border-radius:22px;padding:26px 20px;text-align:center;box-shadow:var(--shadow)}
+    .help h2{font-size:19px;font-weight:900}
+    .help p{opacity:.95;font-size:14px;margin:8px 0 16px}
+    .help a.btn{display:inline-block;background:#fff;color:var(--green-deep);font-weight:700;text-decoration:none;
+      padding:12px 24px;border-radius:999px}
+    .help .mail{display:block;margin-top:12px;font-size:13px;opacity:.92;color:#fff;text-decoration:underline}
+
+    /* footer */
+    .foot{text-align:center;margin-top:30px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:12px}
+    .foot a{color:var(--green-deep);font-weight:700;text-decoration:none;margin:0 8px}
+    .foot .cp{display:block;margin-top:10px;opacity:.7}
+  </style>
+</head>
+<body>
+
+  <header class="top">
+    <a class="brand" href="/">
+      <img src="/assets/MAGU_face07.png" alt="" />
+      <span><b>MAGU MAGIC</b><small>ご利用ガイド</small></span>
+    </a>
+    <a class="back" href="/">← トップへ</a>
+  </header>
+
+  <div class="wrap">
+
+    <section class="hero">
+      <span class="eyebrow">MAGU MAGIC ご利用ガイド</span>
+      <h1>アプリの使い方</h1>
+      <p>お店を探して、注文して、そのままお会計。<br />はじめての方も、これを見れば大丈夫です。</p>
+      <img class="hero-mascot" src="/assets/MAGU_face01.png" alt="" />
+      <div class="badges">
+        <a class="badge" target="_blank" rel="noopener" aria-label="App Store からダウンロード"
+           href="https://apps.apple.com/jp/app/magu-magic-%E3%81%8B%E3%81%97%E3%81%93%E3%81%8F%E4%BA%88%E7%B4%84-%E3%81%8A%E3%81%84%E3%81%97%E3%81%8F%E9%A3%9F%E4%BA%8B/id6445927515">
+          <img src="/assets/black.svg" alt="Download on the App Store" />
+        </a>
+        <a class="badge" target="_blank" rel="noopener" aria-label="Google Play で手に入れよう"
+           href="https://play.google.com/store/apps/details?id=com.maguclub.magu&amp;pcampaignid=web_share">
+          <img src="/assets/google-play-badge.png" alt="Get it on Google Play" />
+        </a>
+      </div>
+    </section>
+
+    <section class="steps">
+
+      <article class="step">
+        <div class="step-head"><span class="step-ic ic-a">📱</span><h2>アプリを入手して会員登録</h2></div>
+        <p>上のボタンから MAGU MAGIC をダウンロードし、メールアドレスなどを登録してはじめます。</p>
+        <ul>
+          <li>登録は無料。ダウンロード後すぐに使えます</li>
+          <li>満14歳未満の方はご利用いただけません</li>
+        </ul>
+      </article>
+
+      <article class="step">
+        <div class="step-head"><span class="step-ic ic-b">🔍</span><h2>お店を探す</h2></div>
+        <p>画面下の<b>「検索」</b>から、店名・エリア・マップでお店を見つけます。気になるお店をタップすると、お店のページが開きます。</p>
+        <div class="shot"><img src="/assets/guide-store.webp" alt="お店のページ：店舗説明・メニュー・レビュー・マップのタブ" /></div>
+        <p class="shot-cap">▲ お店のページ（トップ／メニュー／レビュー／マップ）</p>
+        <ul>
+          <li>「マップ」タブで場所や行き方を確認できます</li>
+          <li>「レビュー」タブでみんなの評価をチェック</li>
+        </ul>
+      </article>
+
+      <article class="step">
+        <div class="step-head"><span class="step-ic ic-c">🍱</span><h2>メニューを見て「注文に追加」</h2></div>
+        <p>「メニュー」タブから、写真付きのメニューを選びます。数量を <b>＋</b> で調整し、<b>「注文に追加」</b>を押すとカゴに入ります。</p>
+        <div class="shot"><img src="/assets/guide-menu.webp" alt="メニュー画面：カテゴリ・価格・ポイント・注文に追加ボタン" /></div>
+        <p class="shot-cap">▲ メニュー画面（カテゴリで絞り込み → 注文に追加）</p>
+        <ul>
+          <li>モーニング／ランチ／ディナー／お持ち帰り などで絞り込めます</li>
+          <li>メニューごとに<b>獲得ポイント</b>が表示されます</li>
+        </ul>
+      </article>
+
+      <article class="step">
+        <div class="step-head"><span class="step-ic ic-d">🕒</span><h2>受け取り方を選ぶ</h2></div>
+        <p>注文を確定する前に、<b>イートイン（店内）</b>か<b>テイクアウト（持ち帰り）</b>、受け取りの日時を選びます。</p>
+        <ul>
+          <li>商品は予約日時から<b>1時間以内</b>にお受け取りください</li>
+          <li>内容や合計金額をこの画面で確認できます</li>
+        </ul>
+      </article>
+
+      <article class="step">
+        <div class="step-head"><span class="step-ic ic-e">💳</span><h2>そのままお会計</h2></div>
+        <p>アプリ上でキャッシュレス決済（クレジットカード等）。レジに並ばず、注文と同時にお支払いまで完了します。</p>
+        <ul>
+          <li>注文完了の通知が届いたら、売買契約が成立します</li>
+          <li>支払い・注文の記録は「履歴」からいつでも確認できます</li>
+        </ul>
+      </article>
+
+      <article class="step">
+        <div class="step-head"><span class="step-ic ic-f">🪙</span><h2>ポイントを貯める・使う</h2></div>
+        <p>注文するたびにポイントが貯まり、次回のお会計に使えます。通うほどお得です。</p>
+        <ul>
+          <li>MAGUポイント／ストアポイントの有効期限は発行から<b>6か月</b></li>
+          <li>残高はアプリの「アカウント」などで確認できます</li>
+        </ul>
+      </article>
+
+      <article class="step">
+        <div class="step-head"><span class="step-ic ic-g">🛍️</span><h2>お店で受け取る</h2></div>
+        <p>準備ができたら、お店で商品を受け取って完了です。あとは楽しむだけ。</p>
+        <ul>
+          <li>テイクアウトは並ばず受け取り、イートインは席でゆっくり</li>
+          <li>食べ終えたら「レビュー」で感想を残せます</li>
+        </ul>
+      </article>
+
+    </section>
+
+    <section class="navmap">
+      <h2>画面下のメニュー</h2>
+      <p>アプリの下部には、よく使う5つの入口があります。</p>
+      <div class="navrow">
+        <div><span class="em">🏠</span>ホーム</div>
+        <div><span class="em">🧾</span>履歴</div>
+        <div class="on"><span class="em">🔍</span>検索</div>
+        <div><span class="em">💴</span>お会計</div>
+        <div><span class="em">👤</span>アカウント</div>
+      </div>
+    </section>
+
+    <div class="note">
+      <b>🍺 お酒（年齢制限商品）について</b><br />
+      酒類はイートイン提供のみで、テイクアウトはできません。提供時にお店で、満20歳以上であることを確認できる公的身分証による年齢確認を行います。ご協力をお願いします。
+    </div>
+
+    <section class="help">
+      <h2>困ったときは</h2>
+      <p>操作でわからないことや、ご注文・お受け取りのトラブルは、お気軽にお問い合わせください。</p>
+      <a class="btn" href="/#contact">お問い合わせフォーム</a>
+      <a class="mail" href="mailto:info@magumagic.net">info@magumagic.net</a>
+    </section>
+
+    <footer class="foot">
+      <a href="/">トップへ</a>
+      <span class="cp">© MAGU MAGIC</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>
